@@ -1,118 +1,133 @@
-const BASE_BLOCK = "p-3 rounded border bg-slate-900/60 border-slate-800 transition-colors";
-const PASS = ['border-emerald-500/30', 'bg-emerald-500/5'];
-const FAIL = "p-3 rounded border bg-red-500/5 border-red-500/40";
-const OUT_BASE = "p-4 rounded border text-center font-bold text-sm transition-colors ";
-const OUT_OK = OUT_BASE + "bg-emerald-500/10 border-emerald-500 text-emerald-400";
-const OUT_BAD = OUT_BASE + "bg-red-500/10 border-red-500 text-red-400";
+function runSimulation(type) {
+    // Select active element indicators
+    const buttons = document.querySelectorAll('#simulator button');
+    buttons.forEach(btn => {
+        btn.className = "px-4 py-2 rounded-lg text-xs font-mono font-bold tracking-wider transition bg-slate-900 text-slate-400 hover:text-slate-200 border border-transparent whitespace-nowrap";
+    });
+    
+    // Highlight targeted button selection
+    event.target.className = "px-4 py-2 rounded-lg text-xs font-mono font-bold tracking-wider transition bg-slate-800 text-slate-200 border border-slate-700 whitespace-nowrap";
 
-const SCENARIOS = {
-  human: {
-    input: "UA: Mozilla/5.0 Chrome/120 | Body: clean data | Inter-arrival: 4.2s (Human speed)",
-    t1: ["pass", "User-Agent check PASS. Handshake signature evaluation PASS. Forwarding down-chain."],
-    t2: ["pass", "Cadence check PASS (CV: 0.85). Semantic parsing scoring value: 0/100 points. Action: ALLOW."],
-    out: [OUT_OK, "OUTCOME: HTTP 200 ALLOWED (Forwarded cleanly to application origin node)"],
-  },
-  playwright: {
-    input: "UA: Playwright/1.40 Headless Engine | Body: normal comments | Routing vector: active",
-    t1: ["fail", "MATCH DETECTED: Inline Automation Engine Substring Found. Injecting immediate local kill vector."],
-    t2: ["skip", "Bypassed entirely. Edge context issued async out-of-band report token down-stream to state engine database."],
-    out: [OUT_BAD, "OUTCOME: HTTP 403 FORBIDDEN | Header: [x-bouncer-blocked: tier1] (Dropped at edge)"],
-  },
-  timing: {
-    input: "UA: Mozilla/5.0 Chrome/120 (Spoofed) | Body: clean data | Inter-arrival history: [2.00s, 2.01s, 1.99s, 2.00s]",
-    t1: ["pass", "User-Agent check PASS. Spoofed network layer signatures mimic desktop environments. Evaluating Tier 2."],
-    t2: ["fail", "TIMING THREAT DETECTED: Coefficient of variation < 0.01 (Constant Rhythm Bot). Scored 70 pts. Evicting IP."],
-    out: [OUT_BAD, "OUTCOME: HTTP 403 FORBIDDEN | State: IP blocklisted in Redis memory layer (1-Hour TTL)"],
-  },
-  sqli: {
-    input: "UA: Mozilla/5.0 Firefox/118 | Body: {'data': '; system(\"cat /etc/passwd\");'} | Dynamic attack footprint",
-    t1: ["pass", "Initial structural network footprint metrics conform to criteria limits. Routing payload upstream."],
-    t2: ["fail", "SEMANTIC EXPLOIT DETECTED: RCE system string payload match triggered. Evaluation score: 80/100 points."],
-    out: [OUT_BAD, "OUTCOME: HTTP 403 FORBIDDEN | Action: Malicious injection blocked prior to database persistence execution layers"],
-  },
-};
+    // Target elements
+    const inputBlock = document.getElementById('sim-input');
+    const t1Block = document.getElementById('sim-t1');
+    const t2Block = document.getElementById('sim-t2');
+    const outcomeBlock = document.getElementById('sim-outcome');
 
-let simTimers = [];
+    const txtInput = document.getElementById('txt-input');
+    const txtT1 = document.getElementById('txt-t1');
+    const txtT2 = document.getElementById('txt-t2');
 
-function paint(el, textEl, [state, text]) {
-  if (state === "pass") el.classList.add(...PASS);
-  else if (state === "fail") el.className = FAIL;
-  else if (state === "skip") el.classList.add("opacity-40");
-  textEl.textContent = text;
-}
+    // Reset base configurations
+    [inputBlock, t1Block, t2Block].forEach(el => el.className = "p-3 rounded border bg-slate-900/60 border-slate-800 transition-colors");
+    outcomeBlock.className = "p-4 rounded border text-center font-bold text-sm bg-slate-900/60 border-slate-800 transition-colors";
+    outcomeBlock.textContent = "STATUS: VERIFYING INBOUND VISITOR CONTEXT...";
 
-function runSimulation(type, btn) {
-  document.querySelectorAll('#simulator button').forEach(b => {
-    b.classList.remove('bg-slate-800', 'text-slate-200', 'border-slate-700');
-    b.classList.add('bg-slate-900', 'text-slate-400', 'border-transparent');
-  });
-  btn.classList.remove('bg-slate-900', 'text-slate-400', 'border-transparent');
-  btn.classList.add('bg-slate-800', 'text-slate-200', 'border-slate-700');
-
-  simTimers.forEach(clearTimeout);
-  simTimers = [];
-
-  const s = SCENARIOS[type];
-  const inputBlock = document.getElementById('sim-input');
-  const t1 = document.getElementById('sim-t1');
-  const t2 = document.getElementById('sim-t2');
-  const out = document.getElementById('sim-outcome');
-
-  [inputBlock, t1, t2].forEach(el => el.className = BASE_BLOCK);
-  document.getElementById('txt-t1').textContent = "Idle.";
-  document.getElementById('txt-t2').textContent = "Idle.";
-  out.className = OUT_BASE + "bg-slate-900/60 border-slate-800";
-  out.textContent = "OUTCOME: PROCESSING REQUEST PROFILE...";
-  document.getElementById('txt-input').textContent = s.input;
-
-  simTimers.push(setTimeout(() => paint(t1, document.getElementById('txt-t1'), s.t1), 400));
-  simTimers.push(setTimeout(() => paint(t2, document.getElementById('txt-t2'), s.t2), 800));
-  simTimers.push(setTimeout(() => { out.className = s.out[0]; out.textContent = s.out[1]; }, 1200));
+    if (type === 'human') {
+        txtInput.textContent = "Browser Type: Normal Chrome Desktop | Activity: Reading page contents | Speed: Human timing (4.2 seconds between actions)";
+        setTimeout(() => {
+            t1Block.className = "p-3 rounded border border-emerald-500/30 bg-emerald-500/5 transition-colors";
+            txtT1.textContent = "Outer Gateway: Looks like a normal web browser. Passing down for timing analysis.";
+        }, 400);
+        setTimeout(() => {
+            t2Block.className = "p-3 rounded border border-emerald-500/30 bg-emerald-500/5 transition-colors";
+            txtT2.textContent = "Behavioral Analysis: Traffic speeds vary naturally. Internal parameters are perfectly safe. Threat Score: 0/100.";
+        }, 800);
+        setTimeout(() => {
+            outcomeBlock.className = "p-4 rounded border text-center font-bold text-sm bg-emerald-500/10 border-emerald-500 text-emerald-400";
+            outcomeBlock.textContent = "VERDICT: ALLOWED (Inbound user connected straight to your site seamlessly)";
+        }, 1200);
+    } 
+    else if (type === 'playwright') {
+        txtInput.textContent = "Browser Type: Automated Testing Framework | Activity: Scraping platform information | Speed: High-velocity execution loop";
+        setTimeout(() => {
+            t1Block.className = "p-3 rounded border bg-red-500/5 border-red-500/40 transition-colors";
+            txtT1.textContent = "Outer Gateway MATCH: Identified signature block of known automated scraping engine. Blocking connection instantly.";
+        }, 400);
+        setTimeout(() => {
+            t2Block.className = "p-3 rounded border border-slate-800 opacity-40 transition-colors";
+            txtT2.textContent = "Bypassed. Edge shield already handled isolation loop, cutting down backend processing costs.";
+        }, 800);
+        setTimeout(() => {
+            outcomeBlock.className = "p-4 rounded border text-center font-bold text-sm bg-red-500/10 border-red-500 text-red-400";
+            outcomeBlock.textContent = "VERDICT: BLOCKED AT GATEWAY (Connection dropped before it could load your server)";
+        }, 1200);
+    } 
+    else if (type === 'timing') {
+        txtInput.textContent = "Browser Type: Spoofed Human Header (Faked Profile) | Activity: Deep link discovery | Speed: Programmed delay (Exactly 2.00 seconds every click)";
+        setTimeout(() => {
+            t1Block.className = "p-3 rounded border border-emerald-500/30 bg-emerald-500/5 transition-colors";
+            txtT1.textContent = "Outer Gateway: Browser metadata claims to be human. Forwarding to behavior engine for rhythmic evaluation.";
+        }, 400);
+        setTimeout(() => {
+            t2Block.className = "p-3 rounded border bg-red-500/5 border-red-500/40 transition-colors";
+            txtT2.textContent = "Behavioral Analysis ALERT: Clicks are mathematically perfect. No human moves with zero variation. Bot detected via rhythm fingerprints.";
+        }, 800);
+        setTimeout(() => {
+            outcomeBlock.className = "p-4 rounded border text-center font-bold text-sm bg-red-500/10 border-red-500 text-red-400";
+            outcomeBlock.textContent = "VERDICT: BLOCKED (Bot identified and added to temporary blocklist for 1 hour)";
+        }, 1200);
+    } 
+    else if (type === 'sqli') {
+        txtInput.textContent = "Browser Type: Normal Firefox User | Activity: Posting comment input | Payload: Contains automated PHP exploit string";
+        setTimeout(() => {
+            t1Block.className = "p-3 rounded border border-emerald-500/30 bg-emerald-500/5 transition-colors";
+            txtT1.textContent = "Outer Gateway: Verified browser handshake framework. Routing message content to payload scanner.";
+        }, 400);
+        setTimeout(() => {
+            t2Block.className = "p-3 rounded border bg-red-500/5 border-red-500/40 transition-colors";
+            txtT2.textContent = "Behavioral Analysis ALERT: Malicious PHP execution command detected inside client message layout.";
+        }, 800);
+        setTimeout(() => {
+            outcomeBlock.className = "p-4 rounded border text-center font-bold text-sm bg-red-500/10 border-red-500 text-red-400";
+            outcomeBlock.textContent = "VERDICT: MALICIOUS PAYLOAD BLOCKED (Exploit dropped prior to hitting database storage infrastructure)";
+        }, 1200);
+    }
 }
 
 // ---- Google Form waitlist ----
-// Fill these in from your Google Form (see README in landing-page/).
+// Same form/entry IDs as simulator.js (see README in landing-page/).
 const GOOGLE_FORM = {
-  action: "https://docs.google.com/forms/d/e/1FAIpQLSee_c0VoDIZC0Aaat88rPC-PvtRJZSZsBLzc_l9LnGepi3ZLA/formResponse",
-  fields: {
-    email: "entry.1939952555",      // "Corporate Email Address" question
-    framework: "entry.361821576",  // "Primary Infrastructure Framework" question
-  },
+    action: "https://docs.google.com/forms/d/e/1FAIpQLSee_c0VoDIZC0Aaat88rPC-PvtRJZSZsBLzc_l9LnGepi3ZLA/formResponse",
+    fields: {
+        email: "entry.1939952555",      // "Corporate Email Address" question
+        framework: "entry.361821576",  // "Primary Infrastructure Framework" question
+    },
 };
 
 async function handleWaitlistSubmit(e) {
-  e.preventDefault();
-  const btn = document.getElementById('form-btn');
-  const err = document.getElementById('form-error');
-  err.classList.add('hidden');
+    e.preventDefault();
+    const btn = document.getElementById('form-btn');
+    const err = document.getElementById('form-error');
+    err.classList.add('hidden');
 
-  if (Object.values(GOOGLE_FORM.fields).some(id => id.startsWith("entry.0000"))) {
-    err.textContent = "Form not configured yet: set GOOGLE_FORM in simulator.js.";
-    err.classList.remove('hidden');
-    return;
-  }
+    if (Object.values(GOOGLE_FORM.fields).some(id => id.startsWith("entry.0000"))) {
+        err.textContent = "Form not configured yet: set GOOGLE_FORM in v2.js.";
+        err.classList.remove('hidden');
+        return;
+    }
 
-  btn.classList.add('opacity-50', 'pointer-events-none');
-  btn.textContent = "TRANSMITTING SIGNALS...";
+    btn.classList.add('opacity-50', 'pointer-events-none');
+    btn.textContent = "TRANSMITTING REGISTRATION VECTOR...";
 
-  const body = new URLSearchParams();
-  body.append(GOOGLE_FORM.fields.email, document.getElementById('email').value.trim());
-  body.append(GOOGLE_FORM.fields.framework, document.getElementById('framework').value);
+    const body = new URLSearchParams();
+    body.append(GOOGLE_FORM.fields.email, document.getElementById('email').value.trim());
+    body.append(GOOGLE_FORM.fields.framework, document.getElementById('framework').value);
 
-  try {
-    // Google Forms doesn't send CORS headers, so use no-cors (response is opaque).
-    await fetch(GOOGLE_FORM.action, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body,
-    });
-    document.getElementById('waitlist-form').classList.add('hidden');
-    document.getElementById('form-success').classList.remove('hidden');
-  } catch (_) {
-    btn.classList.remove('opacity-50', 'pointer-events-none');
-    btn.textContent = "SUBMIT REQUEST REGISTRATION";
-    err.textContent = "Network error. Please try again.";
-    err.classList.remove('hidden');
-  }
+    try {
+        // Google Forms doesn't send CORS headers, so use no-cors (response is opaque).
+        await fetch(GOOGLE_FORM.action, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body,
+        });
+        document.getElementById('waitlist-form').classList.add('hidden');
+        document.getElementById('form-success').classList.remove('hidden');
+    } catch (_) {
+        btn.classList.remove('opacity-50', 'pointer-events-none');
+        btn.textContent = "GET EARLY ACCESS";
+        err.textContent = "Network error. Please try again.";
+        err.classList.remove('hidden');
+    }
 }
