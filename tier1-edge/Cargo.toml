@@ -1,0 +1,10 @@
+[package]
+name = "bouncer-edge"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+# TODO: add `proxy-wasm` to wire this into Envoy's HTTP filter chain.
+[dependencies]

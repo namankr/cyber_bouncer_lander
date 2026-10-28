@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Bouncer | AI-Native Application Shielding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0B0F19',
+                            card: '#161F30',
+                            accent: '#3B82F6',
+                            success: '#10B981',
+                            danger: '#EF4444'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-brand-dark text-slate-100 font-sans antialiased selection:bg-brand-accent selection:text-white">
+
+    <!-- Navigation Header -->
+    <header class="border-b border-slate-800 bg-brand-dark/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">⚡ CYBER BOUNCER</span>
+                <span class="px-2 py-0.5 text-xs font-mono font-semibold bg-blue-500/10 text-blue-400 rounded-full border border-blue-500/20">v0.4 MVP</span>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
+                <a href="#features" class="hover:text-slate-200 transition">Core Architecture</a>
+                <a href="#simulator" class="hover:text-slate-200 transition">Live Demo</a>
+                <a href="#integration" class="hover:text-slate-200 transition">Zero-Code Onboarding</a>
+            </nav>
+            <div>
+                <a href="#waitlist" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition shadow-lg shadow-blue-600/20">Join Pilot Program</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="max-w-4xl mx-auto px-4 pt-20 pb-16 text-center">
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight text-white mb-6 leading-tight">
+            Stop Autonomous AI Agents Before They Hit Your Backend.
+        </h1>
+        <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+            An invisible, two-tier reverse proxy network shield that identifies machine-speed timing anomalies, spoofed handshakes, and LLM-guided exploits. <strong class="text-slate-200">Zero application code modifications required.</strong>
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <a href="#waitlist" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white px-8 py-3.5 rounded-lg font-bold transition shadow-lg shadow-blue-600/20">Secure Your Application</a>
+            <a href="#simulator" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-slate-200 px-8 py-3.5 rounded-lg font-bold transition border border-slate-700">Watch Live Simulation</a>
+        </div>
+    </section>
+
+    <!-- Architecture & Features Grid -->
+    <section id="features" class="max-w-6xl mx-auto px-4 py-16 border-t border-slate-800">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">Two-Tier Hybrid Protection Topology</h2>
+            <p class="text-slate-400 max-w-xl mx-auto text-sm">Decoupled data and control planes maximize security filtering efficiency while ensuring absolute minimal application latency additions.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Tier 1 Card -->
+            <div class="bg-brand-card border border-slate-800 p-8 rounded-xl shadow-xl">
+                <div class="flex items-center space-x-3 mb-4">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 font-mono font-bold text-sm">01</span>
+                    <h3 class="text-lg font-bold text-white">Tier-1: Inline Edge Guard (Rust WASM)</h3>
+                </div>
+                <p class="text-slate-400 text-sm mb-6 leading-relaxed">Runs natively inside Envoy proxy layers at microsecond intervals. Evaluates raw traffic signatures before downstream resource invocation occurs.</p>
+                <ul class="space-y-3 font-mono text-xs text-slate-300">
+                    <li class="flex items-center space-x-2">
+                        <span class="text-brand-accent">✓</span> <span>Inline Automation UA Drops (Playwright/Puppeteer)</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <span class="text-brand-accent">✓</span> <span>Edge JA3/JA4 Structural Handshake Fingerprinting</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <span class="text-brand-accent">✓</span> <span>High-Throughput Global Token Bucket Flood Isolation</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- Tier 2 Card -->
+            <div class="bg-brand-card border border-slate-800 p-8 rounded-xl shadow-xl">
+                <div class="flex items-center space-x-3 mb-4">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 font-mono font-bold text-sm">02</span>
+                    <h3 class="text-lg font-bold text-white">Tier-2: Deep Behavioral Brain (FastAPI)</h3>
+                </div>
+                <p class="text-slate-400 text-sm mb-6 leading-relaxed">Asynchronously computes multi-signal weighted threat vectors against persistent Redis transactional lookup matrices with automated cache healing.</p>
+                <ul class="space-y-3 font-mono text-xs text-slate-300">
+                    <li class="flex items-center space-x-2">
+                        <span class="text-brand-success">✓</span> <span>Micro-Timing Cadence &amp; Autocorrelation Variance</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <span class="text-brand-success">✓</span> <span>Browser Telemetry Verification (Missing Accept-Language)</span>
+                    </li>
+                    <li class="flex items-center space-x-2">
+                        <span class="text-brand-success">✓</span> <span>Multi-Layered Payload SQLi/RCE Scoring Matrices</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Simulation Widget -->
+    <section id="simulator" class="max-w-4xl mx-auto px-4 py-16 border-t border-slate-800">
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-bold text-white mb-2">Interactive Defense Simulator</h2>
+            <p class="text-slate-400 text-sm">Select an attack footprint type below to trace how Cyber Bouncer blocks the traffic profile instantly.</p>
+        </div>
+
+        <div class="bg-brand-card border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
+            <!-- Selector Header -->
+            <div class="flex border-b border-slate-800 bg-slate-900/50 p-2 overflow-x-auto gap-2">
+                <button onclick="runSimulation('human', this)" class="px-4 py-2 rounded-lg text-xs font-mono font-bold tracking-wider transition bg-slate-800 text-slate-200 border border-slate-700 whitespace-nowrap">BENIGN HUMAN BROWSER</button>
+                <button onclick="runSimulation('playwright', this)" class="px-4 py-2 rounded-lg text-xs font-mono font-bold tracking-wider transition bg-slate-900 text-slate-400 hover:text-slate-200 border border-transparent whitespace-nowrap">PLAYWRIGHT AUTOMATION BOT</button>
+                <button onclick="runSimulation('timing', this)" class="px-4 py-2 rounded-lg text-xs font-mono font-bold tracking-wider transition bg-slate-900 text-slate-400 hover:text-slate-200 border border-transparent whitespace-nowrap">CONSTANT SLEEP(2) CADENCE BOT</button>
+                <button onclick="runSimulation('sqli', this)" class="px-4 py-2 rounded-lg text-xs font-mono font-bold tracking-wider transition bg-slate-900 text-slate-400 hover:text-slate-200 border border-transparent whitespace-nowrap">RCE PAYLOAD MUTATION</button>
+            </div>
+
+            <!-- Visualization Area -->
+            <div class="p-6 font-mono text-xs space-y-4 min-h-[300px] flex flex-col justify-between">
+                <div id="sim-input" class="p-3 rounded border bg-slate-900/60 border-slate-800 transition-colors">
+                    <span class="text-slate-500 font-bold">[INBOUND REQUEST]</span> <span class="text-slate-300" id="txt-input">Awaiting initialization. Select a profile above...</span>
+                </div>
+                <div class="text-center text-slate-600">│<br>▼</div>
+                <div id="sim-t1" class="p-3 rounded border bg-slate-900/60 border-slate-800 transition-colors">
+                    <span class="text-slate-500 font-bold">[TIER-1 ENVOY EDGE]</span> <span class="text-slate-300" id="txt-t1">Idle.</span>
+                </div>
+                <div class="text-center text-slate-600">│<br>▼</div>
+                <div id="sim-t2" class="p-3 rounded border bg-slate-900/60 border-slate-800 transition-colors">
+                    <span class="text-slate-500 font-bold">[TIER-2 FASTAPI BRAIN]</span> <span class="text-slate-300" id="txt-t2">Idle.</span>
+                </div>
+                <div class="text-center text-slate-600">│<br>▼</div>
+                <div id="sim-outcome" class="p-4 rounded border text-center font-bold text-sm bg-slate-900/60 border-slate-800 transition-colors">
+                    OUTCOME: STANDBY
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Zero-Touch Onboarding -->
+    <section id="integration" class="max-w-6xl mx-auto px-4 py-16 border-t border-slate-800">
+        <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">Zero-Touch Infrastructure Onboarding</h2>
+            <p class="text-slate-400 max-w-xl mx-auto text-sm">No software library installations or client application updates ever required.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-brand-card border border-slate-800 p-6 rounded-xl">
+                <div class="font-mono text-blue-400 font-bold mb-2">01</div>
+                <h3 class="font-bold text-white mb-2">Route Ingress</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Direct your network DNS record layers or cloud load-balancer boundaries toward the Cyber Bouncer container architecture.</p>
+            </div>
+            <div class="bg-brand-card border border-slate-800 p-6 rounded-xl">
+                <div class="font-mono text-blue-400 font-bold mb-2">02</div>
+                <h3 class="font-bold text-white mb-2">Calibrate Staging</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Initialize in <code class="font-mono text-slate-200">BOUNCER_MODE=monitor</code>. Gather passive metrics and compute structural thresholds with zero traffic drop safety.</p>
+            </div>
+            <div class="bg-brand-card border border-slate-800 p-6 rounded-xl">
+                <div class="font-mono text-blue-400 font-bold mb-2">03</div>
+                <h3 class="font-bold text-white mb-2">Enforce Edge</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Transition system controls into blocking posture. Malicious actors are dropped instantly at the perimeter while clean user metrics persist.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist -->
+    <section id="waitlist" class="max-w-xl mx-auto px-4 py-16 border-t border-slate-800">
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-bold text-white mb-2">Apply for Early Pilot Access</h2>
+            <p class="text-slate-400 text-sm">We are selecting a limited group of architectural engineering design partners for early container ecosystem deployment testing.</p>
+        </div>
+        <form id="waitlist-form" onsubmit="handleWaitlistSubmit(event)" class="bg-brand-card border border-slate-800 rounded-xl p-6 space-y-5">
+            <div>
+                <label for="email" class="block text-xs font-mono text-slate-400 mb-2">Corporate Email Address</label>
+                <input id="email" type="email" required placeholder="you@company.com"
+                       class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-brand-accent">
+            </div>
+            <div>
+                <label for="framework" class="block text-xs font-mono text-slate-400 mb-2">Primary Infrastructure Framework</label>
+                <select id="framework" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-brand-accent">
+                    <option>Envoy Proxy / Istio Service Mesh</option>
+                    <option>Kubernetes Native Ingress / Gateway API</option>
+                    <option>Nginx Reverse Proxy Ingress Architecture</option>
+                    <option>Standalone Docker Compose Microservice Container Setup</option>
+                </select>
+            </div>
+            <button id="form-btn" type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg font-bold text-sm tracking-wider transition">SUBMIT REQUEST REGISTRATION</button>
+        </form>
+        <div id="form-success" class="hidden bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 rounded-xl p-6 text-sm text-center font-mono">
+            ✓ Registration vector parsed successfully. We will follow up via secure electronic transmission lines shortly.
+        </div>
+    </section>
+
+    <footer class="border-t border-slate-800 py-8 text-center text-xs text-slate-500 px-4">
+        © 2026 Cyber Bouncer Security Fabrics Inc. All Rights Reserved. Engineered for machine-speed perimeter enforcement.
+    </footer>
+
+    <script src="simulator.js"></script>
+</body>
+</html>

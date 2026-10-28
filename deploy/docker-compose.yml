@@ -1,0 +1,20 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+
+  tier2-brain:
+    build: ../tier2-brain
+    environment:
+      BOUNCER_MODE: monitor   # monitor | enforce
+      REDIS_URL: redis://redis:6379/0
+    depends_on: [redis]
+    ports: ["8000:8000"]
+
+  landing:
+    image: nginx:alpine
+    volumes:
+      - ../landing-page:/usr/share/nginx/html:ro
+    ports: ["8080:80"]
+
+  # TODO: envoy service with the Tier-1 WASM filter
