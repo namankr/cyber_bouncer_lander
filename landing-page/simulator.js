@@ -70,14 +70,49 @@ function runSimulation(type, btn) {
   simTimers.push(setTimeout(() => { out.className = s.out[0]; out.textContent = s.out[1]; }, 1200));
 }
 
-function handleWaitlistSubmit(e) {
+// ---- Google Form waitlist ----
+// Fill these in from your Google Form (see README in landing-page/).
+const GOOGLE_FORM = {
+  action: "https://docs.google.com/forms/d/e/1FAIpQLSee_c0VoDIZC0Aaat88rPC-PvtRJZSZsBLzc_l9LnGepi3ZLA/formResponse",
+  fields: {
+    email: "entry.1939952555",      // "Corporate Email Address" question
+    framework: "entry.361821576",  // "Primary Infrastructure Framework" question
+  },
+};
+
+async function handleWaitlistSubmit(e) {
   e.preventDefault();
   const btn = document.getElementById('form-btn');
+  const err = document.getElementById('form-error');
+  err.classList.add('hidden');
+
+  if (Object.values(GOOGLE_FORM.fields).some(id => id.startsWith("entry.0000"))) {
+    err.textContent = "Form not configured yet: set GOOGLE_FORM in simulator.js.";
+    err.classList.remove('hidden');
+    return;
+  }
+
   btn.classList.add('opacity-50', 'pointer-events-none');
   btn.textContent = "TRANSMITTING SIGNALS...";
-  // TODO: replace with a real POST to your waitlist endpoint
-  setTimeout(() => {
+
+  const body = new URLSearchParams();
+  body.append(GOOGLE_FORM.fields.email, document.getElementById('email').value.trim());
+  body.append(GOOGLE_FORM.fields.framework, document.getElementById('framework').value);
+
+  try {
+    // Google Forms doesn't send CORS headers, so use no-cors (response is opaque).
+    await fetch(GOOGLE_FORM.action, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    });
     document.getElementById('waitlist-form').classList.add('hidden');
     document.getElementById('form-success').classList.remove('hidden');
-  }, 1000);
+  } catch (_) {
+    btn.classList.remove('opacity-50', 'pointer-events-none');
+    btn.textContent = "SUBMIT REQUEST REGISTRATION";
+    err.textContent = "Network error. Please try again.";
+    err.classList.remove('hidden');
+  }
 }
